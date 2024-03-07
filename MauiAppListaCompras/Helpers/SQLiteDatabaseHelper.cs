@@ -34,12 +34,6 @@ namespace MauiAppListaCompras.Helpers
             return _conn.Table<Produto>().ToListAsync();
         }
 
-        public Task<int> Delete(int id)
-        {
-            return _conn.Table<Produto>().DeleteAsync(
-                i => i.Id == id);
-        }
-
         public Task<List<Produto>> Search(string q)
         {
             string sql = "SELECT * FROM Produto WHERE " +
@@ -48,5 +42,10 @@ namespace MauiAppListaCompras.Helpers
             return _conn.QueryAsync<Produto>(sql);
         }
 
+        public Task<int> Delete(int id)
+        {
+            return _conn.Table<Produto>().DeleteAsync(
+                i => i.Id == id);
+        }
     } // Fecha classe
 } // Fecha namespace
