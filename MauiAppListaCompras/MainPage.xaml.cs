@@ -36,9 +36,9 @@ namespace MauiAppListaCompras
             } // Fecha if
         }
 
-        private void ToolbarItem_Clicked_Add(object sender, EventArgs e)
+        private async void ToolbarItem_Clicked_Add(object sender, EventArgs e)
         {
-
+            await Shell.Current.GoToAsync("//NovoProduto");
         }
 
         private void txt_search_TextChanged(object sender, TextChangedEventArgs e)
