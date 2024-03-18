@@ -28,7 +28,8 @@
                          IsRefreshing="False"
                          Refreshing="ref_carregando_Refreshing" />
 
-            <ListView x:Name="lst_produtos" ItemSelected="lst_produtos_ItemSelected">
+            <ListView x:Name="lst_produtos" 
+                      ItemSelected="lst_produtos_ItemSelected">
                 <ListView.Header>
                     <Grid ColumnDefinitions="3*, *, *, *">
                         <Label Grid.Column="0" Text="Produto" />

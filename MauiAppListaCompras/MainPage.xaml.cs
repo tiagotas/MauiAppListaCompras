@@ -52,8 +52,8 @@ namespace MauiAppListaCompras
                 {
                     lista_produtos.Add(p);
                 }
-            });
-        }
+            }); // Fecha Task
+        } // Fecha método do evento
 
         private void ref_carregando_Refreshing(object sender, EventArgs e)
         {
@@ -66,18 +66,38 @@ namespace MauiAppListaCompras
                     lista_produtos.Add(p);
                 }
 
-            });
+            }); // Fecha Task
             ref_carregando.IsRefreshing = false;
-        }
+        } // Fecha método do Refreshing
 
         private void lst_produtos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
 
         }
 
-        private void MenuItem_Clicked_Remover(object sender, EventArgs e)
+        private async void MenuItem_Clicked_Remover(object sender, EventArgs e)
         {
+            try
+            {
+                MenuItem selecionado = (MenuItem)sender;
+                
+                Produto p = selecionado.BindingContext as Produto;
+                
+                bool confirm = await DisplayAlert(
+                    "Tem certeza?", "Remover Produto?", 
+                    "Sim", "Cancelar");
 
+                if (confirm)
+                {
+                    await App.Db.Delete(p.Id);
+                    await DisplayAlert("Sucesso!",
+                        "Produto Removido", "OK");
+                }
+
+            } catch(Exception ex)
+            {
+                await DisplayAlert("Ops", ex.Message, "OK");
+            }
         }
     } // Fecha classe
 }
