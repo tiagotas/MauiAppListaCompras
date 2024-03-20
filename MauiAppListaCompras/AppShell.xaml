@@ -8,23 +8,16 @@
     Shell.FlyoutBehavior="Disabled"
     Title="MauiAppListaCompras">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
-    <ShellContent
-        Title="Novo"
-        ContentTemplate="{DataTemplate Views:NovoProduto}"
-        Route="NovoProduto" />
+    <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}"/>
 
     <TabBar x:Name="TabsPaginas">
-        <Tab Title="NovoProduto">
-            <ShellContent ContentTemplate="{DataTemplate Views:NovoProduto}"/>
+        <Tab Title="Minha Lista" Icon="pag2.png">
+            <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}"/>
         </Tab>
-        <Tab Title="Listagem" Icon="pag2.png">
-            <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
+        <Tab Title="Novo Produto">
+            <ShellContent Route="NovoProduto" ContentTemplate="{DataTemplate Views:NovoProduto}" />
         </Tab>
     </TabBar>
+
 
 </Shell>

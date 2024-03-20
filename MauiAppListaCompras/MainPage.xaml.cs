@@ -38,7 +38,8 @@ namespace MauiAppListaCompras
 
         private async void ToolbarItem_Clicked_Add(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//NovoProduto");
+            // await Shell.Current.GoToAsync("//NovoProduto");
+            await Navigation.PushAsync(new Views.NovoProduto());
         }
 
         private void txt_search_TextChanged(object sender, TextChangedEventArgs e)
@@ -72,7 +73,12 @@ namespace MauiAppListaCompras
 
         private void lst_produtos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            Produto? p = e.SelectedItem as Produto;
 
+            Navigation.PushAsync(new Views.EditarProduto
+            {
+                BindingContext = p
+            });
         }
 
         private async void MenuItem_Clicked_Remover(object sender, EventArgs e)

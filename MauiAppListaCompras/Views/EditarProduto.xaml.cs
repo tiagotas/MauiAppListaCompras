@@ -25,6 +25,7 @@ public partial class EditarProduto : ContentPage
 
 			await App.Db.Update(p);
 			await DisplayAlert("Sucesso!", "Produto Editado!", "OK");
+			await Navigation.PopAsync();
 
 		} catch(Exception ex)
 		{
