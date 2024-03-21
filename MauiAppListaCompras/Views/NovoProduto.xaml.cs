@@ -22,8 +22,7 @@ public partial class NovoProduto : ContentPage
 
 			await App.Db.Insert(p);
 			await DisplayAlert("Sucesso!", "Produto inserido", "OK");
-
-            await Shell.Current.GoToAsync("//MainPage");
+			await Navigation.PushAsync(new MainPage());            
 
         } catch(Exception ex)
 		{

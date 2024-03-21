@@ -5,7 +5,7 @@ namespace MauiAppListaCompras
 {
     public partial class MainPage : ContentPage
     {
-        ObservableCollection<Produto> lista_produtos = 
+        ObservableCollection<Produto> lista_produtos =
             new ObservableCollection<Produto>();
 
         public MainPage()
@@ -21,24 +21,20 @@ namespace MauiAppListaCompras
             DisplayAlert("Somatória", msg, "Fechar");
         }
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
             if (lista_produtos.Count == 0)
             {
-                Task.Run(async () =>
+                List<Produto> tmp = await App.Db.GetAll();
+                foreach (Produto p in tmp)
                 {
-                    List<Produto> tmp = await App.Db.GetAll();
-                    foreach (Produto p in tmp)
-                    {
-                        lista_produtos.Add(p);
-                    }
-                }); // Fecha Task
+                    lista_produtos.Add(p);
+                }
             } // Fecha if
         }
 
         private async void ToolbarItem_Clicked_Add(object sender, EventArgs e)
         {
-            // await Shell.Current.GoToAsync("//NovoProduto");
             await Navigation.PushAsync(new Views.NovoProduto());
         }
 
@@ -46,7 +42,7 @@ namespace MauiAppListaCompras
         {
             string q = e.NewTextValue;
             lista_produtos.Clear();
-            Task.Run(async() =>
+            Task.Run(async () =>
             {
                 List<Produto> tmp = await App.Db.Search(q);
                 foreach (Produto p in tmp)
@@ -62,7 +58,7 @@ namespace MauiAppListaCompras
             Task.Run(async () =>
             {
                 List<Produto> tmp = await App.Db.GetAll();
-                foreach(Produto p in tmp)
+                foreach (Produto p in tmp)
                 {
                     lista_produtos.Add(p);
                 }
@@ -86,11 +82,11 @@ namespace MauiAppListaCompras
             try
             {
                 MenuItem selecionado = (MenuItem)sender;
-                
+
                 Produto p = selecionado.BindingContext as Produto;
-                
+
                 bool confirm = await DisplayAlert(
-                    "Tem certeza?", "Remover Produto?", 
+                    "Tem certeza?", "Remover Produto?",
                     "Sim", "Cancelar");
 
                 if (confirm)
@@ -100,7 +96,8 @@ namespace MauiAppListaCompras
                         "Produto Removido", "OK");
                 }
 
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 await DisplayAlert("Ops", ex.Message, "OK");
             }
