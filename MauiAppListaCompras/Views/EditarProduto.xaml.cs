@@ -31,5 +31,5 @@ public partial class EditarProduto : ContentPage
 		{
 			await DisplayAlert("Ops", ex.Message, "Fechar");
 		}
-    }
-}
+    } // Fecha Classe
+} // Fecha Namespace

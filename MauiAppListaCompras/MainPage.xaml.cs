@@ -38,18 +38,16 @@ namespace MauiAppListaCompras
             await Navigation.PushAsync(new Views.NovoProduto());
         }
 
-        private void txt_search_TextChanged(object sender, TextChangedEventArgs e)
+        private async void txt_search_TextChanged(object sender, TextChangedEventArgs e)
         {
             string q = e.NewTextValue;
             lista_produtos.Clear();
-            Task.Run(async () =>
+
+            List<Produto> tmp = await App.Db.Search(q);
+            foreach (Produto p in tmp)
             {
-                List<Produto> tmp = await App.Db.Search(q);
-                foreach (Produto p in tmp)
-                {
-                    lista_produtos.Add(p);
-                }
-            }); // Fecha Task
+                lista_produtos.Add(p);
+            }
         } // Fecha método do evento
 
         private void ref_carregando_Refreshing(object sender, EventArgs e)
@@ -92,10 +90,9 @@ namespace MauiAppListaCompras
                 if (confirm)
                 {
                     await App.Db.Delete(p.Id);
-                    await DisplayAlert("Sucesso!",
-                        "Produto Removido", "OK");
+                    await DisplayAlert("Sucesso!", "Produto Removido", "OK");
+                    lista_produtos.Remove(p);
                 }
-
             }
             catch (Exception ex)
             {
@@ -103,4 +100,4 @@ namespace MauiAppListaCompras
             }
         }
     } // Fecha classe
-}
+} // Fecha namespace
